@@ -5,14 +5,12 @@ import { usePayment } from './PaymentContext'
 
 interface ActivitySummaryProps {
   variant?: 'feed' | 'profile'
-  price?: string
 }
 
 export default function ActivitySummary({ 
-  variant = 'feed',
-  price = 'R$ 37,90'
+  variant = 'feed'
 }: ActivitySummaryProps) {
-  const { processPayment } = usePayment()
+  const { processPayment, selectedPlan, prices } = usePayment()
   
   return (
     <div className="bg-zinc-900 rounded-lg overflow-hidden">
@@ -68,7 +66,7 @@ export default function ActivitySummary({
         onClick={processPayment}
         className="w-full py-3 text-white font-medium bg-gradient-to-r from-purple-600 to-pink-500 hover:from-purple-700 hover:to-pink-600"
       >
-        Desbloquear tudo - {price}
+        Desbloquear tudo - {prices[selectedPlan]}
       </button>
     </div>
   )

@@ -29,5 +29,5 @@ export default function PaymentSection({
   const period = selectedPlan === 'monthly' ? '/mês' : '/ano'
   
   // Use the new Activity Summary component
-  return <ActivitySummary price={currentPrice} variant="feed" />
+  return <ActivitySummary variant="feed" />
 }

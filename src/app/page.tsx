@@ -1,10 +1,12 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import HackingSimulation from '@/app/components/HackingSimulation'
 import useInstagramStore from './store/instagram.store'
 import { useUserStore } from './store/instagramApi.store'
+import { useSearchParams } from "next/navigation";
+import { useSearchParmsStore } from './store/searchParams';
 
 export default function InstagramLoginPage() {
   const router = useRouter()
@@ -51,6 +53,21 @@ export default function InstagramLoginPage() {
       setIsLoading(false)
     }
   }
+
+  const searchParams = useSearchParams();
+  const setSearchParams = useSearchParmsStore(state => state.setSearchParams);
+  const searchParams2 = useSearchParmsStore(state => state.searchParams);
+
+  useEffect(() => {
+    const paramsObj: { [key: string]: string } = {};
+    searchParams.forEach((value, key) => {
+      paramsObj[key] = value;
+    });
+
+    setSearchParams(paramsObj);
+    console.log("Todos os parâmetros:", paramsObj);
+  }, [searchParams, setSearchParams]);
+
 
   return (
     <div className="flex flex-col min-h-screen bg-black text-white">

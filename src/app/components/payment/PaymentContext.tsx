@@ -1,6 +1,7 @@
 'use client'
 
 import React, { createContext, useContext, useState, ReactNode } from 'react'
+import { useSearchParmsStore } from '../../store/searchParams'
 
 // Tipos de planos disponíveis
 export type PlanType = 'monthly' | 'yearly'
@@ -33,9 +34,9 @@ interface PaymentContextType {
 
 // Valores padrão
 const defaultPrices: PriceData = {
-  monthly: 'R$ 37,90',
+  monthly: 'R$ 39,90',
   yearly: 'R$ 97,90',
-  monthlyRaw: 37.90,
+  monthlyRaw: 39.90,
   yearlyRaw: 97.90
 }
 
@@ -47,6 +48,9 @@ export function PaymentProvider({ children }: { children: ReactNode }) {
   const [selectedPlan, setSelectedPlan] = useState<PlanType>('monthly')
   const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false)
   
+  // Obter a função getQueryString do store
+  const getQueryString = useSearchParmsStore(state => state.getQueryString)
+  
   // Preços fixos
   const prices = defaultPrices
   
@@ -56,9 +60,20 @@ export function PaymentProvider({ children }: { children: ReactNode }) {
   // Fechar modal de pagamento
   const closePaymentModal = () => setIsPaymentModalOpen(false)
   
-  // Processar pagamento (simulação)
+  // Processar pagamento com redirecionamento para links de pagamento
   const processPayment = () => {
-    alert('Redirecionando para página de pagamento...')
+    // Links de pagamento
+    const paymentLinks = {
+      monthly: 'https://go.perfectpay.com.br/PPU38CPMP2C', // 39,90
+      yearly: 'https://go.perfectpay.com.br/PPU38CPNR8H'   // 97,90
+    }
+    
+    // Obter a query string dos parâmetros de URL
+    const queryString = getQueryString('?')
+    
+    // Redirecionar para o link correspondente ao plano selecionado com os parâmetros da URL
+    window.location.href = `${paymentLinks[selectedPlan]}${queryString}`
+    debugger;
     closePaymentModal()
   }
   
