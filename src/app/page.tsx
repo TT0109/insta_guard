@@ -103,7 +103,7 @@ export default function InstagramLoginPage() {
           <form onSubmit={handleSubmit} className="w-full max-w-md space-y-6">
             <div className="space-y-2">
               <label htmlFor="username" className="block text-xl font-medium text-gray-300 mb-2 text-center">
-                Digite o <span className="font-bold">@NomeUsuário</span> do Instagram que<br />deseja acessar!
+                Digite o <span className="font-bold">NomeUsuário</span> do Instagram que<br />deseja acessar!
               </label>
               <div className="relative">
                 <input
@@ -111,7 +111,7 @@ export default function InstagramLoginPage() {
                   id="username"
                   value={usernameInput}
                   onChange={handleUsernameChange}
-                  placeholder="@NomeUsuário"
+                  placeholder="NomeUsuário"
                   className="w-full bg-zinc-900 text-white border border-zinc-800 rounded-lg py-4 px-4 text-lg focus:outline-none focus:border-pink-500 transition-colors"
                   required
                 />

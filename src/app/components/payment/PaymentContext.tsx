@@ -33,10 +33,10 @@ interface PaymentContextType {
 
 // Valores padrão
 const defaultPrices: PriceData = {
-  monthly: 'R$ 19,90',
-  yearly: 'R$ 199,00',
-  monthlyRaw: 19.90,
-  yearlyRaw: 199.00
+  monthly: 'R$ 37,90',
+  yearly: 'R$ 97,90',
+  monthlyRaw: 37.90,
+  yearlyRaw: 97.90
 }
 
 // Criando o contexto
