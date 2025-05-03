@@ -7,6 +7,7 @@ import { PaymentProvider } from "./components/payment/PaymentContext";
 import { Suspense } from "react";
 import gtmBody from "./scripts/gtm-body";
 import Head from "./head";
+import CheckoutRedirect from "./components/CheckoutRedirect";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,6 +38,7 @@ export default function RootLayout({
         <Head />
        <Suspense>
         <PaymentProvider>
+          <CheckoutRedirect />
           {children}
           <AutoNotifications />
           <AutoUserMessages />

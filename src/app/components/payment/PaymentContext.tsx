@@ -68,6 +68,21 @@ export function PaymentProvider({ children }: { children: ReactNode }) {
       yearly: 'https://go.perfectpay.com.br/PPU38CPNR8H'   // 97,90
     }
     
+    // Valores dos planos
+    const planValues = {
+      monthly: 39.90,
+      yearly: 97.90
+    }
+    
+    // Salvar informações do checkout no localStorage
+    localStorage.setItem('checkout', JSON.stringify({
+      timestamp: new Date().toISOString(),
+      plan: selectedPlan,
+      value: planValues[selectedPlan],
+      formattedValue: prices[selectedPlan],
+      source: window.location.pathname
+    }))
+    
     // Obter a query string dos parâmetros de URL
     const queryString = getQueryString('?')
     

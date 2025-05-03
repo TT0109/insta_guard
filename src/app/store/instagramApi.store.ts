@@ -52,6 +52,7 @@ export const useUserStore = create<UserStore>((set) => ({
       if (userInfoResponse && userInfoResponse.data && userInfoResponse.data.user) {
         set({ user: userInfoResponse.data.user });
       }
+      localStorage.setItem('username', username);
       return userInfoResponse;
     } catch (err) {
       console.error('Error fetching user info:', err);

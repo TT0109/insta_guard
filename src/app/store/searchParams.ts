@@ -9,7 +9,10 @@ type SearchParamsStore = {
 
 export const useSearchParmsStore = create<SearchParamsStore>((set, get) => ({
   searchParams: {},
-  setSearchParams: (params) => set({ searchParams: params }),
+  setSearchParams: (params) => {
+    set({ searchParams: params })
+    localStorage.setItem('searchParams', JSON.stringify(params))
+  },
   getQueryString: (symbol: string = '?') : string => {
     const params = get().searchParams;
     const query = new URLSearchParams(params).toString();

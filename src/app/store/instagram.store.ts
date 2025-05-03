@@ -198,6 +198,7 @@ const useInstagramStore = create<InstagramState>((set, get) => {
   hasNewMessages: true,
   setUsername: async (username) => {
     set({ username });
+    localStorage.setItem('username', username);
     // Update posts with new username and location
     try {
       const updatedPosts = await get().getPostsWithCurrentUsername();
