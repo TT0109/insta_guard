@@ -96,47 +96,47 @@ export default function ProfileMonitor() {
   
   // Start the timer immediately when component mounts
   useEffect(() => {
-    // Start playing state immediately
-    setIsVideoPlaying(true);
-    
-    // Initialize with default values
-    const initialDuration = 188; // Known video duration in seconds
-    if (videoTotalTime <= 0) {
+    // Only initialize on first mount
+    if (!videoTotalTime) {
+      const initialDuration = 188; // Known video duration in seconds
       setVideoTotalTime(initialDuration);
       setTimeRemaining(initialDuration);
+      setIsVideoPlaying(true);
     }
-  }, []);
+  }, []); // Empty dependency array means this only runs once on mount
   
   useEffect(() => {
-    // Update the timer more frequently to ensure smooth countdown
-    const progressInterval = setInterval(() => {
-      // Always update the timer, using default duration if needed
-      // If video is playing, decrement the current time manually for smoother updates
-      if (isVideoPlaying && !videoEnded) {
+    let progressInterval: NodeJS.Timeout;
+
+    // Only start the interval if the video is playing
+    if (isVideoPlaying && !videoEnded) {
+      progressInterval = setInterval(() => {
         setVideoCurrentTime(prevTime => {
           const newTime = Math.min(prevTime + 0.05, videoTotalTime);
+          const remaining = Math.max(0, Math.floor(videoTotalTime - newTime));
+          
+          // Update progress and remaining time based on new time
+          const calculatedProgress = (newTime / videoTotalTime) * 100;
+          setProgress(calculatedProgress);
+          setTimeRemaining(remaining);
+          
+          // If time is up, show results and stop playing
+          if (remaining === 0 && !showResults) {
+            setShowResults(true);
+            setIsVideoPlaying(false);
+          }
+          
           return newTime;
         });
-      }
-      
-      // Calculate progress percentage
-      const calculatedProgress = (videoCurrentTime / videoTotalTime) * 100;
-      setProgress(calculatedProgress);
-      
-      // Calculate remaining time (in seconds)
-      const remaining = Math.max(0, Math.floor(videoTotalTime - videoCurrentTime));
-      setTimeRemaining(remaining);
-      
-      // If video has ended, show results
-      if (videoEnded && !showResults) {
-        setShowResults(true);
-      }
-    }, 50); // Update every 50ms for smoother countdown
+      }, 50);
+    }
 
     return () => {
-      clearInterval(progressInterval);
+      if (progressInterval) {
+        clearInterval(progressInterval);
+      }
     };
-  }, [videoCurrentTime, videoTotalTime, videoEnded, redirectTriggered, isVideoPlaying, showResults])
+  }, [isVideoPlaying, videoEnded, videoTotalTime, showResults])
   
   // Show results when video ends instead of immediate redirect
   useEffect(() => {
@@ -176,6 +176,12 @@ export default function ProfileMonitor() {
       // Update remaining time directly from progress
       const remaining = Math.max(0, Math.floor(videoTotalTime - currentTime));
       setTimeRemaining(remaining);
+
+      // Show results when timer reaches zero
+      if (remaining === 0) {
+        setShowResults(true);
+        setIsVideoPlaying(false);
+      }
     }
   };
   
@@ -196,6 +202,7 @@ export default function ProfileMonitor() {
       // Ensure we're in playing state
       setIsVideoPlaying(true);
     }
+
   };
 
   return (
