@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   title: "Instagram Guard",
   description: "Instagram Guard", 
 };
-
+ 
 export default function RootLayout({
   children,
 }: Readonly<{
