@@ -7,7 +7,7 @@ export default function Head() {
     <>
       {/* <title>O Detetive do instagram</title>
       <meta name="description" content="Descubra quem está espionando seu perfil do instagram" /> */}
-      <div dangerouslySetInnerHTML={{ __html: gtmHead }} />
+      <div dangerouslySetInnerHTML={{ __html: gtmHead }} /> 
     </>
   )
 }
