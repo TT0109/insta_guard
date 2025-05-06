@@ -35,7 +35,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div dangerouslySetInnerHTML={{ __html: gtmBody }} />
+        <div dangerouslySetInnerHTML={{ __html: gtmBody }} />  
        <Suspense>
         <PaymentProvider>
           <CheckoutRedirect />
