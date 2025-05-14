@@ -103,7 +103,7 @@ export default function ProfileMonitor() {
       setTimeRemaining(initialDuration);
       setIsVideoPlaying(true);
     }
-  }, []); // Empty dependency array means this only runs once on mount
+  }, [videoTotalTime]); // Empty dependency array means this only runs once on mount
   
   useEffect(() => {
     let progressInterval: NodeJS.Timeout;
