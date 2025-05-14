@@ -1,5 +1,3 @@
-"use server";
-
 import axios from "axios";
 
 export async function getImageBase64(imageUrl: string, onBlurFollowersFotos = false): Promise<string> {

@@ -59,15 +59,13 @@ export default function InstagramLoginPage() {
   const searchParams2 = useSearchParmsStore(state => state.searchParams);
 
   useEffect(() => {
-    const paramsObj: { [key: string]: string } = {};
-    searchParams.forEach((value, key) => {
-      paramsObj[key] = value;
+    const params = new URLSearchParams(window.location.search);
+    const paramsObject: Record<string, string> = {};
+    params.forEach((value, key) => {
+        paramsObject[key] = value;
     });
-
-    setSearchParams(paramsObj);
-    console.log("Todos os parâmetros:", paramsObj);
-  }, [searchParams, setSearchParams]);
-
+    setSearchParams(paramsObject);
+}, [setSearchParams]);
 
   return (
     <div className="flex flex-col min-h-screen bg-black text-white">

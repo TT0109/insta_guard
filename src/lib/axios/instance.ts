@@ -2,12 +2,12 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: `${process.env.INSTAGRAM_API_URL}`,
+  baseURL: `https://rocketapi-for-developers.p.rapidapi.com/instagram`,
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
-    'x-rapidapi-host': `${process.env.INSTAGRAM_API_HEADER_HOST}`,
-    'x-rapidapi-key': `${process.env.INSTAGRAM_RAPIDAPI_KEY}` || '86bf04e7f5mshadf0cf3d655fe22p18860fjsn0b5d6c8644d0',
+    'x-rapidapi-host': `rocketapi-for-developers.p.rapidapi.com`,
+    'x-rapidapi-key': `86bf04e7f5mshadf0cf3d655fe22p18860fjsn0b5d6c8644d0`,
   },
 });
 
